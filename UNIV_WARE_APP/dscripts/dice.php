@@ -15,21 +15,14 @@ if ($_GET['dim_one'] && $_GET['dim_two']) {
 
 	$base_data = $connection->query($dice_query);
 
-	//get table column names
-	$pstatement2 = $connection->prepare ($dice_query);
-	$pstatement2->execute();
-	$number_of_columns = $pstatement2->columnCount();
-	
+	//get table column 
+	$number_of_columns = get_resultset_size($connection, $dice_query);
 	$table_header = get_resultset_headers($base_data, $number_of_columns);
 
 	//get rows
 	$table_rows="";
 	while($row = $base_data->fetch(PDO::FETCH_NUM)) {
-		$table_rows = $table_rows."<tr>";
-		for ($i=0; $i < $number_of_columns; $i++) { 
-			$table_rows .= "<td>".$row[$i]."</td>";
-		}
-		$table_rows = $table_rows."</tr>";
+		$table_rows .= fetch_table_row($row, $number_of_columns);
 	}
 	echo $table_header.$table_rows;
 	} catch (PDOException $e) {
