@@ -127,13 +127,5 @@ $dice_query= "SELECT * FROM ";
 //NOT IMPLEMENTED
 
 //functions
-function get_resultset_headers($resultset, $size) {
-	$table_header = "<tr>";
-	for ($i=0; $i < $size ; $i++) { 
-		$table_header .= "<th>".$resultset->getColumnMeta($i)['name']."</th>";
-	}
-	$table_header .= "</tr>";
 
-	return $table_header;
-}
 ?>
