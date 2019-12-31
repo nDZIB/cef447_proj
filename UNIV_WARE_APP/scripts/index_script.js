@@ -49,29 +49,22 @@ function ajaxOperator() {
 						"<th>Semester number</th><th>School Year</th>"+
 						"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
 
-				//original_table.append(data);
-				//results_table.append(data);
+				original_table.append(data);
+				results_table.append(data);
 
-				//create buttons
-				operations = $('div#operations');
-				buttons = "<button id='roll-up' onclick='roll_up(this.id)'>Roll-Up</button>&nbsp;"+
-						"<button id='drill-down' onclick='drill_down(this.id)'>Drill-Down</button>&nbsp;"+
-						"<button id='slice' onclick='slice(this.id)'>Slice</button>&nbsp;"+
-						"<button id='dice' onclick='dice(this.id)'>Dice</button>&nbsp;"+
-						"<button id='pivot' onclick='pivot(this.id)'>Pivot</button>&nbsp;";
-				operations.append(buttons);
-
+				// //create buttons
+				// operations = $('div#operations');
+				// buttons = "<button id='roll-up' onclick='roll_up(this.id)'>Roll-Up</button>&nbsp;"+
+				// 		"<button id='drill-down' onclick='drill_down(this.id)'>Drill-Down</button>&nbsp;"+
+				// 		"<button id='slice' onclick='slice(this.id)'>Slice</button>&nbsp;"+
+				// 		"<button id='dice' onclick='dice(this.id)'>Dice</button>&nbsp;"+
+				// 		"<button id='pivot' onclick='pivot(this.id)'>Pivot</button>&nbsp;";
+				// operations.append(buttons);
+				//$("ul#ops").css("display", "inline");
 
 
 			})
 		}
-
-
-// function roll_up(operationId) {
-// 	$.get("./dscripts/roll_up.php", {roll_up_to:"department"}, function(data) {
-// 		set_results(data);
-// 	})
-// }
 
 //function to handle roll-up operations on a relevant field
 function roll_up(field) {
@@ -99,23 +92,24 @@ function drill_down(operationID) {
 }
 
 function set_results(data) {
+	tidy_up();
 	results_table = $('table#operation_data').html(data);
 }
 
 
 function show_operation_fields(id) {
 	//hide all operation lists
-	$("ul.operation_list").hide();
-	var element = $("li#"+id+" ul");
-	element.css("display", "inline");
-	
+	tidy_up();
+	$("li#"+id+" ul").css("display", "inline");
 }
-
 
 function hide_list(list_id) {
 	$("ul#"+list_id).css("display", "none");
 }
 
+function tidy_up() {
+	$("ul.operation_list").css("display", "none");
+}
 
 
 

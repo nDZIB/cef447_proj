@@ -20,17 +20,8 @@
 <hr>
 <div>
 	<center><h1 style="color:green;">Operations</h1></center>
-	<div id="operations">
-	</div>
-	<div>
-		<h2 style="color: blue;">Results</h2>
-		<center>
-			<table id="operation_data">	
-			</table>
-		</center>
-	</div>
-
-	<ul id="ops">
+	<div id="operations" onmouseleave="tidy_up()">
+		<ul id="ops">
 		<li id="roll-up-to" onmouseover="show_operation_fields(this.id)" >
 			Roll-Up-to
 			<ul class="operation_list" id="roll_up_list" onmouseleave ="hide_list(this.id)">
@@ -69,6 +60,16 @@
 			</ul>
 		</li>
 	</ul>
+	</div>
+	<div>
+		<h2 style="color: blue;">Results</h2>
+		<center>
+			<table id="operation_data">	
+			</table>
+		</center>
+	</div>
+
+	
 </div>
 
 </body>
