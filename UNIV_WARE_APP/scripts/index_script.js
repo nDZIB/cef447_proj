@@ -49,31 +49,39 @@ function ajaxOperator() {
 						"<th>Semester number</th><th>School Year</th>"+
 						"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
 
-				original_table.append(data);
-				results_table.append(data);
+				//original_table.append(data);
+				//results_table.append(data);
 
 				//create buttons
 				operations = $('div#operations');
 				buttons = "<button id='roll-up' onclick='roll_up(this.id)'>Roll-Up</button>&nbsp;"+
-						"<button id='drill-down'>Drill-Down</button>&nbsp;"+
+						"<button id='drill-down' onclick='drill_down(this.id)'>Drill-Down</button>&nbsp;"+
 						"<button id='slice' onclick='slice(this.id)'>Slice</button>&nbsp;"+
 						"<button id='dice' onclick='dice(this.id)'>Dice</button>&nbsp;"+
 						"<button id='pivot' onclick='pivot(this.id)'>Pivot</button>&nbsp;";
-
 				operations.append(buttons);
+
+
+
 			})
 		}
 
 
+// function roll_up(operationId) {
+// 	$.get("./dscripts/roll_up.php", {roll_up_to:"department"}, function(data) {
+// 		set_results(data);
+// 	})
+// }
 
-function roll_up(operationId) {
-	$.get("./dscripts/roll_up.php", {department:"'Computer Engineering'"}, function(data) {
+//function to handle roll-up operations on a relevant field
+function roll_up(field) {
+	$.get("./dscripts/roll_up.php", {roll_up_to:field}, function(data) {
 		set_results(data);
 	})
 }
 
 function slice(operationID) {
-	$.get("./dscripts/slice.php", {dim_to_slice:"student_dim"}, function(results) {
+	$.get("./dscripts/slice.php", {dim_to_slice:operationID}, function(results) {
 		set_results(results);
 	})
 }
@@ -84,6 +92,32 @@ function dice(operationID) {
 	})
 }
 
+function drill_down(operationID) {
+	$.get("./dscripts/roll_up.php", {roll_up_to:operationID}, function(results) {
+		set_results(results);
+	})
+}
+
 function set_results(data) {
 	results_table = $('table#operation_data').html(data);
 }
+
+
+function show_operation_fields(id) {
+	//hide all operation lists
+	$("ul.operation_list").hide();
+	var element = $("li#"+id+" ul");
+	element.css("display", "inline");
+	
+}
+
+
+function hide_list(list_id) {
+	$("ul#"+list_id).css("display", "none");
+}
+
+
+
+
+
+

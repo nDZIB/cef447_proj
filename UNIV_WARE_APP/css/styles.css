@@ -2,3 +2,12 @@ td,th,tr {
 	border-collapse: collapse;
 	border-width: 1px;
 }
+
+.operation_list {
+	display: none; 
+	position: fixed;
+}  
+
+ul#ops > li{
+	display: inline;
+}

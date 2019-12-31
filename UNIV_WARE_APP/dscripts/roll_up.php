@@ -2,17 +2,33 @@
 require "querries.php";
 require "dbconnection.php";
 
-if (1!=2) {
+if ($_GET['roll_up_to']) {
 	try {
-		$department = "'Computer Engineering'";//$_GET['department'];
+		switch ($_GET['roll_up_to']) {
+			case 'department':
+				$roll_up_query=$roll_up_to_department;
+				break;
+			case 'faculty':
+				$roll_up_query = $roll_up_to_faculty;
+				break;
+			case 'school_year':
+				$roll_up_query = $roll_up_to_school_year;
+				break;
+			case 'religion':
+				$roll_up_query = $roll_up_to_religion;
+				break;
+			default:
+				$roll_up_query=$get_base_data_query;
+				break;
+		}
 	$connection = get_database_connection();
-	$pstatement = $connection->prepare ($roll_up_to_department);
-	//$pstatement->bindParam(1, $department, PDO::PARAM_STR);
-
-	$base_data = $connection->query($roll_up_to_department);
+	$pstatement = $connection->prepare ($roll_up_query);
+	$pstatement = $connection->prepare($roll_up_query);
+	$base_data = $connection->query($roll_up_query);
+	$base_data = $connection->query($roll_up_query);
 
 	//get table column names
-	$pstatement2 = $connection->prepare ($roll_up_to_department);
+	$pstatement2 = $connection->prepare ($roll_up_query);
 	$pstatement2->execute();
 	$number_of_columns = $pstatement2->columnCount();
 	
