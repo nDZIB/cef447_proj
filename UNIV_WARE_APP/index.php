@@ -45,6 +45,10 @@
 			<span>Slice-By</span>
 			<ul class="operation_list" id="slice_list" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="Student_dim" onclick="slice(this.id)">Student</li>
+				<li class="operation" id="course_dim" onclick="slice(this.id)">Course</li>
+				<li class="operation" id="time_dim" onclick="slice(this.id)">Time</li>
+				<li class="operation" id="religion_dim" onclick="slice(this.id)">Religions</li>
+				<li class="operation" id="residence_dim" onclick="slice(this.id)">Residences</li>
 			</ul>
 		</div>
 		<div class="col-7" id="dice-by" onmouseover="show_operation_fields(this.id)">

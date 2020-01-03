@@ -72,7 +72,6 @@ function roll_up(field) {
 			case "faculty":
 				lowerFields.push("ul#roll_up_list > li#student");
 				lowerFields.push("ul#roll_up_list > li#department");
-				//show(higherFields);
 				break;
 			case "student":
 				lowerFields.push("ul#drill_down_list > li");
