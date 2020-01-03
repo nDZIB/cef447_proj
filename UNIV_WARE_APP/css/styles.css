@@ -8,6 +8,59 @@ td,th,tr {
 	position: fixed;
 }  
 
+li.operation {
+	background-color: #eeffff;
+	color: blue;
+	font-size: 18px;
+	margin-bottom: 2px;
+	border-radius: 5px;
+	list-style: none;
+}
+
 ul#ops > li{
 	display: inline;
+}
+
+/*dialoge box*/
+div#dialog {
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(50, 50, 50, 0.8);
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 200px;
+	overflow: hidden;
+}
+
+div#dialog_box {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	/*padding: 5%;*/
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+/*grids*/
+/*rows*/
+* {
+	box-sizing: border-box;
+}
+
+.row:after {
+	clear: both;
+	content: "";
+	display: block;
+}
+.col-6 {width: 50%;}
+.col-12 {width: 100%;}
+.col-7 {width:20%;}
+
+
+[class *= "col-"] {
+	float: left;
+	padding: 1px;
+	border: 2px dotted green;
 }

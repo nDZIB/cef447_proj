@@ -40,36 +40,47 @@ function ajaxOperator() {
 
 
 		//execute queries and put results on the page
-		window.onload =  function() {
-			$.get('dscripts/load_base_data.php', {called:true} , function(data) {
-				original_table= $('table#base_data');
-				results_table = $('table#operation_data');
-				headers = "<tr><th>Matricule</th><th>Student Name</th><th>Residence Quarter</th>"+
-						"<th>Average Km dist from school</th><th>Student Religion</th><th>Student Church</th>"+
-						"<th>Semester number</th><th>School Year</th>"+
-						"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
+		// window.onload =  function() {
+		// 	$.get('dscripts/load_base_data.php', {called:true} , function(data) {
+		// 		original_table= $('table#base_data');
+		// 		results_table = $('table#operation_data');
+		// 		headers = "<tr><th>Matricule</th><th>Student Name</th><th>Residence Quarter</th>"+
+		// 				"<th>Average Km dist from school</th><th>Student Religion</th><th>Student Church</th>"+
+		// 				"<th>Semester number</th><th>School Year</th>"+
+		// 				"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
 
-				original_table.append(data);
-				results_table.append(data);
-
-				// //create buttons
-				// operations = $('div#operations');
-				// buttons = "<button id='roll-up' onclick='roll_up(this.id)'>Roll-Up</button>&nbsp;"+
-				// 		"<button id='drill-down' onclick='drill_down(this.id)'>Drill-Down</button>&nbsp;"+
-				// 		"<button id='slice' onclick='slice(this.id)'>Slice</button>&nbsp;"+
-				// 		"<button id='dice' onclick='dice(this.id)'>Dice</button>&nbsp;"+
-				// 		"<button id='pivot' onclick='pivot(this.id)'>Pivot</button>&nbsp;";
-				// operations.append(buttons);
-				//$("ul#ops").css("display", "inline");
-
-
-			})
-		}
+		// 		original_table.append(data);
+		// 		results_table.append(data);
+		// 	})
+		// }
 
 //function to handle roll-up operations on a relevant field
 function roll_up(field) {
+
 	$.get("./dscripts/roll_up.php", {roll_up_to:field}, function(data) {
 		set_results(data);
+		//hide what should be hidden
+		var lowerFields =  ["ul#roll_up_list > li#"+field, "ul#drill_down_list > li#"+field];
+		$("ul#roll_up_list > li").css("display", "inherit");
+		$("ul#drill_down_list > li").css("display", "inherit");
+
+		switch(field) {
+			case "department":
+				lowerFields.push("ul#roll_up_list > li#student");
+				lowerFields.push("ul#drill_down_list > li#faculty");
+				break;
+			case "faculty":
+				lowerFields.push("ul#roll_up_list > li#student");
+				lowerFields.push("ul#roll_up_list > li#department");
+				//show(higherFields);
+				break;
+			case "student":
+				lowerFields.push("ul#drill_down_list > li");
+				break;
+			default://fields which are the least in their concept hierachy
+				break;
+		}
+		remove(lowerFields);
 	})
 }
 
@@ -88,6 +99,22 @@ function dice(operationID) {
 function drill_down(operationID) {
 	$.get("./dscripts/roll_up.php", {roll_up_to:operationID}, function(results) {
 		set_results(results);
+
+		//hide fields which need to be hidden
+		var higherFields = ["ul#drill_down_list > li#"+operationID, "ul#roll_up_list > li#"+operationID];
+		$("ul#roll_up_list > li").css("display", "inherit");
+		$("ul#drill_down_list > li").css("display", "inherit");
+		switch(operationID) {
+			case "department":
+				higherFields.push("ul#drill_down_list > li#faculty");
+				break;
+			case "student":
+				higherFields.push("ul#drill_down_list > li#department");
+				higherFields.push("ul#drill_down_list > li#faculty");
+			default:
+				break;
+		}
+		remove(higherFields);
 	})
 }
 
@@ -100,7 +127,7 @@ function set_results(data) {
 function show_operation_fields(id) {
 	//hide all operation lists
 	tidy_up();
-	$("li#"+id+" ul").css("display", "inline");
+	$("div#"+id+" ul").css("display", "inline");
 }
 
 function hide_list(list_id) {
@@ -111,7 +138,44 @@ function tidy_up() {
 	$("ul.operation_list").css("display", "none");
 }
 
+function show_dialog() {
+	$("div#dialog").css("display", "block");
+}
+
+function remove (fields) {
+	for (var count = fields.length - 1; count >= 0; count--) {
+		$(fields[count]).css("display", "none");
+	}
+}
+
+function show(fields) {
+	for(var count = fields.length-1; count >=0; count--) {
+		$(fields[count]).css("display", "inherit");
+	}
+}
+
+function populate_dimension(value) {
+	$("div#preview_selected_dims").append(value);
+}
+
+function display_available_fields() {
+	//var selected_dims = $("input:checked");
+	//var p_sltd = $.param(selected_dims);
+	$.get("./dscripts/dice2.php",  function(results) {
+		$("div#dialog").append(results);
+	})
+}
+
+function get_dim_fields(dimension) {
+	$("[value *= "+dimension+"]").hide();
+	$("[value *= "+dimension+"]").parent().hide();
+	$.get("./dscripts/dice2.php", {dim:dimension}, function(results) {
+		$("div#prev_selected_dims").html(results);
+	})
+}
 
 
-
+function select_field(field) {
+	alert(field);
+}
 

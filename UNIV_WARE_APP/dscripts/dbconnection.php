@@ -30,6 +30,16 @@ function get_resultset_headers($resultset, $size) {
 	return $table_header;
 }
 
+function get_resultset_headers_list($resultset, $size) {
+	$table_headers_list="<ul>";
+	
+	for ($i=0; $i < $size ; $i++) { 
+		$col_name =$resultset->getColumnMeta($i)['name'];
+		$table_headers_list .= "<li onclick='select_field(this.value)'>".$col_name."</li>";
+	}
+	return $table_headers_list."</ul>";
+}
+
 //get number of columns in resultset
 function get_resultset_size($connection, $query) {
 	$pstatement2 = $connection->prepare ($query);
