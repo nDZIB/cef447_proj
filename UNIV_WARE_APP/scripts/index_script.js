@@ -1,7 +1,10 @@
-(
-	function () {
-	}) ()
 
+$(document).ready(function() {
+	$('form#stud_reli_dice').submit(function(event) {
+		event.preventDefault();
+		dice(event);
+	})
+})
 
 
 function loadTripFromDatabase() {
@@ -89,10 +92,23 @@ function slice(operationID) {
 	})
 }
 
-function dice(operationID) {
-	$.get("./dscripts/dice.php", {dim_one:"student_dim", dim_two:"time_dim"}, function(results) {
-		set_results(results);
-	})
+function initiate_dice(operationID) {
+	var dice_form="<marquee><h1>Unknown</h1></marquee>";
+	switch(operationID) {
+		case "student&religion":
+			//show a modal box with a form where the user can specify query parameters
+			//on submitting the form, the result is returned and displayed (form action could be index.php)
+			$("form#stud_reli_dice").css("display", "inline");
+			$("div#dialog").css("display", "inline");
+			break;
+		default:
+			// $.get("./dscripts/dice.php", {dim_one:"student_dim", dim_two:"time_dim"}, function(results) {
+			// 	set_results(results);
+			// })
+			alert("here we go");
+			break;
+
+	}
 }
 
 function drill_down(operationID) {
@@ -178,3 +194,38 @@ function select_field(field) {
 	alert(field);
 }
 
+function dice(event) {
+		//disable all checkboxes
+		var formID = event.target.id; //each form has an id and forms are the event targets not submit buttons
+	var valid = $("form#"+formID+" input[type='text']:not([disabled])");
+	var requestStatus = $("form#"+formID+" input[type='radio']").serialize();
+	var form="formid="+formID+"&";
+	var formData = requestStatus+"&"+form+valid.serialize();
+	$("form#"+formID).css("display", "none");
+	$("div#dialog").css("display", "none");
+
+	//alert(formData);
+
+	$.ajax( {
+		type : 'GET',
+		url : './dscripts/dice.php',
+		data: formData,
+		dataType : 'json',
+		encode : true
+	}).done (function (results) {
+		$("div#dialog").css("display", "none");
+		$("div#dialog > form").css("display", "none");
+		alert(results.rows);
+	});
+}
+
+function updateField(fieldID) {
+	var box = $("input[name="+fieldID);
+	var inputField = $("input[name='"+fieldID.slice(4)+"']");
+
+	if(box.prop("checked")) {
+		inputField.attr("disabled", "disabled");
+	} else {
+		inputField.removeAttr("disabled");
+	}
+}

@@ -121,7 +121,7 @@ $roll_up_to_school_year = "SELECT GROUP_CONCAT(DISTINCT student_dim.stud_matricu
 $slice_query=" SELECT * FROM ";
 
 //dice querry UNSAFE, LIABLE TO SQL INJECTION
-$dice_query= "SELECT * FROM ";
+$dice_query= "SELECT * FROM student_dim ";
 
 //pivot query
 //NOT IMPLEMENTED

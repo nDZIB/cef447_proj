@@ -54,7 +54,8 @@
 		<div class="col-7" id="dice-by" onmouseover="show_operation_fields(this.id)">
 			<span>Dice-By</span>
 			<ul class="operation_list" id="dice_list" onmouseleave ="hide_list(this.id)">
-				<li class="operation" id="Student_dim" onclick="dice(this.id)">Student</li>
+				<li class="operation" id="Student_dim" onclick="initiate_dice(this.id)">Student</li>
+				<li class="operation" id="student&religion" onclick="initiate_dice(this.id)">Student And Religion</li>
 			</ul>
 		</div>
 		<div class="col-7" id="pivot-around" onmouseover="show_operation_fields(this.id)">
@@ -73,32 +74,43 @@
 		</center>
 	</div>
 </div>
-
+<form>
+<input type='text' name="age" value="578"><br>
+</form>
 <div id="dialog">
 	<div id="dialog_box" class="row">
-		<div class="col-6">
-			<!-- <form> -->
-				<fieldset>
-					<legend>Dice Attributes</legend>
-					<fieldset>
-						<legend>Available Dimensions</legend>
-						<label><input type="checkbox" onclick="get_dim_fields(this.value)" name="av_dimensions" value="student_dim"> Student </label><br>
-						<label><input type="checkbox" onclick="get_dim_fields(this.value)" name="av_dimensions" value="religion_dim"> Religion </label><br>
-						<label><input type="checkbox" onclick="get_dim_fields(this.value)" name="av_dimensions" value="course_dim"> Course </label><br>
-						<label><input type="checkbox" onclick="get_dim_fields(this.value)" name="av_dimensions" value="residence_dim"> Residence </label><br>
-						<label><input type="checkbox" onclick="get_dim_fields(this.value)" name="av_dimensions" value="time_dim" checked="checked"> Time </label><br>
-					</fieldset>
-					<!-- button to give option to select fields to display -->
-					<button onclick="display_available_fields()">Continue</button>
-				</fieldset>
-			<!-- </form> -->
-		</div>
-		<div id="prev_selected_dims" class="col-6">
-			<h1>Selected dimensions</h1>
-		</div>
-		<div class="col-12" id="selected_fields">
-		</div>
+		<form id='stud_reli_dice' method='GET' action="dscripts/dice.php">
+			<label><input type="radio" name="includevalues" value="include" checked="checked">Include values</label>
+			<label><input type="radio" name="includevalues" value="exclude">Exclude values</label>
+				<div class='row'>
+					<div class='col-6'>
+						<fieldset><legend>Student Info Specs</legend>
+							<label>Full name <input type='text' name="name" disabled="disabled"></label><br>
+							<input type="checkbox"  name="sendname" onclick="updateField(this.name)" checked="checked">Include name<br>
+							<label>Matricule #<input type='text' name="matricule"></label><br>
+							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name)">Include matricule<br>
+							<label>Faculty <input type="text" name="fac"></label><br>
+							<input type="checkbox" name="sendfac" onclick="updateField(this.name)">Include Faculty<br>
+							<label>Department <input type="text" name="depart"></label><br>
+							<input type="checkbox" name="senddepart" onclick="updateField(this.name)">Include Department<br>
+							<label># of Lectures <input type="text" name="tsc"></label><br>
+							<input type="checkbox" name="sendtsc" onclick="updateField(this.name)">Include Lecturer #<br>
+						</fieldset>
+					</div><div class='col-6'>
+						<fieldset><legend>Religion Info Specs</legend>
+							<label>Religion Name <input type='text' name="religionname"></label><br>
+							<input type="checkbox" name="sendreligionname" onclick="updateField(this.name)">Exclude religion<br>
+							<label>Church Name <input type="text" name="churchname"></label><br>
+							<input type="checkbox" name="sendchurchname" onclick="updateField(this.name)">Exclude church name<br>
+						</fieldset>
+					</div>
+				</div>
+				<!-- <input type='submit' value='Execute' name='query'><br> -->
+				<button name="stud_reli_dice">OH</button>
+		</form>
+		<!-- 2 was here -->
 	</div>
+
 </div>
 
 </body>
