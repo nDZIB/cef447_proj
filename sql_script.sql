@@ -99,3 +99,4 @@ ALTER TABLE score_facts
 -- insert more test data
 INSERT INTO course_dim(course_code) VALUES ('xxx999');
 INSERT INTO score_facts() VALUES(2, 1,1,1,1,60.56);
+

@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	$('form#stud_reli_dice').submit(function(event) {
+	$('div#dialog_box > form').submit(function(event) {
 		event.preventDefault();
 		dice(event);
 	})
@@ -15,8 +15,6 @@ function loadTripFromDatabase() {
 
 			var create = "<center><table>"
 						+"<tr><th>Trip Date</th><th>Trip Time</th><th></th></tr>";
-
-
 			var close = "</table></center>";
 			$('#searchResults').append(ajaxVar.responseText);
 
@@ -43,19 +41,19 @@ function ajaxOperator() {
 
 
 		//execute queries and put results on the page
-		// window.onload =  function() {
-		// 	$.get('dscripts/load_base_data.php', {called:true} , function(data) {
-		// 		original_table= $('table#base_data');
-		// 		results_table = $('table#operation_data');
-		// 		headers = "<tr><th>Matricule</th><th>Student Name</th><th>Residence Quarter</th>"+
-		// 				"<th>Average Km dist from school</th><th>Student Religion</th><th>Student Church</th>"+
-		// 				"<th>Semester number</th><th>School Year</th>"+
-		// 				"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
+		window.onload =  function() {
+			$.get('dscripts/load_base_data.php', {called:true} , function(data) {
+				original_table= $('table#base_data');
+				results_table = $('table#operation_data');
+				headers = "<tr><th class='tab_header'>Matricule</th><th>Student Name</th><th>Residence Quarter</th>"+
+						"<th>Average Km dist from school</th><th>Student Religion</th><th>Student Church</th>"+
+						"<th>Semester number</th><th>School Year</th>"+
+						"<th>Mark</th><th>Course Code</th><th>Course Title</th><th>Course Lecturer</th></tr>";
 
-		// 		original_table.append(data);
-		// 		results_table.append(data);
-		// 	})
-		// }
+				original_table.append(data);
+				results_table.append(data);
+			})
+		}
 
 //function to handle roll-up operations on a relevant field
 function roll_up(field) {
@@ -93,22 +91,41 @@ function slice(operationID) {
 }
 
 function initiate_dice(operationID) {
-	var dice_form="<marquee><h1>Unknown</h1></marquee>";
+	var form="";
 	switch(operationID) {
 		case "student&religion":
-			//show a modal box with a form where the user can specify query parameters
-			//on submitting the form, the result is returned and displayed (form action could be index.php)
-			$("form#stud_reli_dice").css("display", "inline");
-			$("div#dialog").css("display", "inline");
+			form = "form#stud_reli_dice";
+			break;
+		case "student&course":
+			form = "form#stud_crse_dice";
+			break;
+		case "student&residence":
+			form = "form#stud_reside_dice";
+			break;
+		case "student&time":
+			form = "form#stud_period_dice";
+			break;
+		case "course&religion":
+			form = "form#course_reli_dice";
+			break;
+		case "course&residence":
+			form = "form#course_reside_dice";
+			break;
+		case "course&time":
+			form = "form#course_time_dice";
+			break;
+		case "religion&residence":
+			form = "form#reli_reside_dice";
+			break;
+		case "religion&time":
+			form = "form#reli_time_dice";
 			break;
 		default:
-			// $.get("./dscripts/dice.php", {dim_one:"student_dim", dim_two:"time_dim"}, function(results) {
-			// 	set_results(results);
-			// })
-			alert("here we go");
+			alert(operationID);
 			break;
-
 	}
+	$(form).css("display", "inline");
+	$("div#dialog").css("display", "inline");
 }
 
 function drill_down(operationID) {
@@ -137,8 +154,6 @@ function set_results(data) {
 	tidy_up();
 	results_table = $('table#operation_data').html(data);
 }
-
-
 function show_operation_fields(id) {
 	//hide all operation lists
 	tidy_up();
@@ -189,7 +204,6 @@ function get_dim_fields(dimension) {
 	})
 }
 
-
 function select_field(field) {
 	alert(field);
 }
@@ -201,10 +215,9 @@ function dice(event) {
 	var requestStatus = $("form#"+formID+" input[type='radio']").serialize();
 	var form="formid="+formID+"&";
 	var formData = requestStatus+"&"+form+valid.serialize();
-	$("form#"+formID).css("display", "none");
-	$("div#dialog").css("display", "none");
-
-	//alert(formData);
+	
+	$("form#"+formID+" button[type='reset']").trigger("click");
+	close_dialog();
 
 	$.ajax( {
 		type : 'GET',
@@ -213,19 +226,43 @@ function dice(event) {
 		dataType : 'json',
 		encode : true
 	}).done (function (results) {
-		$("div#dialog").css("display", "none");
-		$("div#dialog > form").css("display", "none");
-		alert(results.rows);
+		set_results(results.headers+results.rows);
+		//alert(results.rows);
 	});
 }
 
-function updateField(fieldID) {
-	var box = $("input[name="+fieldID);
-	var inputField = $("input[name='"+fieldID.slice(4)+"']");
+function updateField(fieldID, formID) {
+	var box = $("form#"+formID+" input[name="+fieldID);
+	var inputField = $("form#"+formID+" input[name='"+fieldID.slice(4)+"']");
 
 	if(box.prop("checked")) {
 		inputField.attr("disabled", "disabled");
 	} else {
 		inputField.removeAttr("disabled");
 	}
+}
+
+function close_dialog() {
+	$("div#dialog").css("display", "none");
+	$("div#dialog_box > form").css("display", "none");
+}
+
+function enforceEditable(value, formID) {
+
+	var cbox = $("form#"+formID+" input[value ='"+value+"']");
+	var inputFields = $("form#"+formID+" input[type='text']");
+
+	switch(value) {
+		case "exlude":
+			if(cbox.prop("checked"))
+				inputFields.attr("readonly", "readonly");
+			else
+				inputFields.removeAttr("readonly");
+	}
+	if(box.prop("checked")) {
+		inputField.attr("disabled", "disabled");
+	} else {
+		inputField.removeAttr("disabled");
+	}
+
 }
