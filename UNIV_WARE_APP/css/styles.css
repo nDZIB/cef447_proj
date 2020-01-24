@@ -3,7 +3,6 @@ table, td,th,tr {
 	border-collapse: collapse;
 	border: 1px solid green;
 }
-
 td {
 	font-size: 11px;
 }
@@ -11,31 +10,29 @@ td {
 	color: red;
 	font-size: 16px;
 }
-
 div#base_data_div {
 	height: 40%;
 	overflow: scroll;
 }
-
-
 div#data-work-area {
 	overflow: scroll;
 }
-
 .operation_list {
 	display: none; 
 	position: absolute;
+	background: rgb(0,0,0);
 }  
-
 .operation-menu {
 	display: inline-block;
 	position: relative;
+	background-color: black;
+	color: yellow;
 }
-
 li.operation {
 	background-color: #eeffff;
-	color: blue;
-	font-size: 18px;
+	color: red;
+	font-size: 16px;
+	z-index: 1;
 	margin-bottom: 2px;
 	border-radius: 5px;
 	list-style: none;
@@ -64,7 +61,6 @@ div#dialog_box {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
-	/*padding: 5%;*/
 	background-color: rgba(200, 200, 200, 0.5);
 }
 
@@ -76,8 +72,6 @@ div#dialog_box_header {
 	right: 0px;
 }
 
-/*grids*/
-/*rows*/
 * {
 	box-sizing: border-box;
 }
@@ -95,5 +89,5 @@ div#dialog_box_header {
 [class *= "col-"] {
 	float: left;
 	padding: 1px;
-	border: 2px dotted green;
+	border: 2px solid blue;
 }

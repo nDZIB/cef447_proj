@@ -2,8 +2,6 @@
 
 require "querries.php";
 require "dbconnection.php";
-
-
 	
 	$query="";
 	if($_GET['includevalues']=="include") {
@@ -15,8 +13,6 @@ require "dbconnection.php";
 		//$query  = genereateColumnAndValueBasedQUERY($_GET);
 		$query = getAllColumns($_GET);
 	}
-
-	//echo json_encode(array("rows"=>$query));
 
 	//query the database
 	try {
@@ -185,7 +181,6 @@ function generateValuedSQLQUERY($data) {
 
 		return substr($submited, 0, -4);
 		}
-
 function generateColumnBasedSQLQUERY($data) {
 	$tables="";
 	$columns="";
@@ -331,7 +326,6 @@ function generateColumnBasedSQLQUERY($data) {
 
 	return $submited;
 }
-
 function getAllColumns($data) {
 	$tables="";
 	$columns=" * ";

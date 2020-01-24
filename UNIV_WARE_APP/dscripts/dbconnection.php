@@ -1,7 +1,4 @@
 <?php
-
-
-
 function get_database_connection()
 {
 	$servername = "localhost";
@@ -15,10 +12,9 @@ function get_database_connection()
 		$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}catch (PDOException $e) {
 	echo "Error durring connection: ".$e->getMessage();
-} 
+	} 
 	return $connection;
 }
-
 //get headers
 function get_resultset_headers($resultset, $size) {
 	$table_header = "<tr>";
@@ -29,24 +25,12 @@ function get_resultset_headers($resultset, $size) {
 
 	return $table_header;
 }
-
-function get_resultset_headers_list($resultset, $size) {
-	$table_headers_list="<ul>";
-	
-	for ($i=0; $i < $size ; $i++) { 
-		$col_name =$resultset->getColumnMeta($i)['name'];
-		$table_headers_list .= "<li onclick='select_field(this.value)'>".$col_name."</li>";
-	}
-	return $table_headers_list."</ul>";
-}
-
 //get number of columns in resultset
 function get_resultset_size($connection, $query) {
 	$pstatement2 = $connection->prepare ($query);
 	$pstatement2->execute();
 	return $pstatement2->columnCount();
 }
-
 //get a table row from a row
 function fetch_table_row($row, $number_of_columns) {
 	$table_row = "<tr>";

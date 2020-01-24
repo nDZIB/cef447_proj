@@ -17,7 +17,9 @@ $get_base_data_query = "SELECT student_dim.stud_matricule Matricule, student_dim
 
 //roll up to department
 $roll_up_to_department = "SELECT GROUP_CONCAT(DISTINCT residence_dim.quarter SEPARATOR'& ') AS Residences, 
-								
+								GROUP_CONCAT(student_dim.stud_matricule SEPARATOR '& ') AS Matricules,
+								GROUP_CONCAT(student_dim.stud_full_name SEPARATOR '& ') AS Names,
+
 								student_dim.stud_department_name Department,
 								student_dim.stud_faculty_name Faculty,
 
@@ -42,6 +44,7 @@ $roll_up_to_department = "SELECT GROUP_CONCAT(DISTINCT residence_dim.quarter SEP
 $roll_up_to_faculty = "SELECT	 GROUP_CONCAT(DISTINCT residence_dim.quarter SEPARATOR'& ') AS Residences, 
 								
 								student_dim.stud_faculty_name Faculty,
+								GROUP_CONCAT(DISTINCT student_dim.stud_department_name SEPARATOR '& ') AS Departments,
 
 								SUM(residence_dim.akmd_to_school) AS Total_dist,
 								GROUP_CONCAT(DISTINCT religion_dim.religion SEPARATOR'& ') AS Religions,
@@ -110,16 +113,9 @@ $roll_up_to_school_year = "SELECT GROUP_CONCAT(DISTINCT student_dim.stud_matricu
 						GROUP BY Academic_Year";
 
 //drill-down is opposite of roll up
-
-//Slice query THIS QUERY IS UNSAFE, IT DOES NOT PREVENT SQL INJECTION
 $slice_query=" SELECT * FROM ";
 
-//dice querry UNSAFE, LIABLE TO SQL INJECTION
 $dice_query= "SELECT * FROM student_dim ";
 
-//pivot query
-//NOT IMPLEMENTED
-
-//functions
 
 ?>

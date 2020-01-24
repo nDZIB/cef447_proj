@@ -5,43 +5,8 @@ $(document).ready(function() {
 		dice(event);
 	})
 })
-
-
-function loadTripFromDatabase() {
-	ajaxVar = ajaxOperator();
-
-	ajaxVar.onreadystatechange = function() {
-		if(ajaxVar.status == 200 && ajaxVar.readyState == 4) {
-
-			var create = "<center><table>"
-						+"<tr><th>Trip Date</th><th>Trip Time</th><th></th></tr>";
-			var close = "</table></center>";
-			$('#searchResults').append(ajaxVar.responseText);
-
-			alert(ajaxVar.responseText);
-		}
-	}
-
-	//ajaxVar.open("POST", '../index.php',true);
-	ajaxVar.send();
-}
-
-
-function ajaxOperator() {
-
-			var operationVar;
-			if(window.XMLHttpRequest) {
-				operationVar = new XMLHttpRequest();
-			} else {
-				operationVar = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-
-			return operationVar;
-		}
-
-
-		//execute queries and put results on the page
-		window.onload =  function() {
+//execute queries and put results on the page
+window.onload =  function() {
 			$.get('dscripts/load_base_data.php', {called:true} , function(data) {
 				original_table= $('table#base_data');
 				results_table = $('table#operation_data');
@@ -52,9 +17,11 @@ function ajaxOperator() {
 
 				original_table.append(data);
 				results_table.append(data);
-			})
-		}
 
+				$("input[type *= text]").attr("readonly", "readonly");
+				$("input[type *= text]").attr();
+			})
+}
 //function to handle roll-up operations on a relevant field
 function roll_up(field) {
 
@@ -83,13 +50,11 @@ function roll_up(field) {
 		remove(lowerFields);
 	})
 }
-
 function slice(operationID) {
 	$.get("./dscripts/slice.php", {dim_to_slice:operationID}, function(results) {
 		set_results(results);
 	})
 }
-
 function initiate_dice(operationID) {
 	var form="";
 	switch(operationID) {
@@ -127,7 +92,6 @@ function initiate_dice(operationID) {
 	$(form).css("display", "inline");
 	$("div#dialog").css("display", "inline");
 }
-
 function drill_down(operationID) {
 	$.get("./dscripts/roll_up.php", {roll_up_to:operationID}, function(results) {
 		set_results(results);
@@ -149,7 +113,6 @@ function drill_down(operationID) {
 		remove(higherFields);
 	})
 }
-
 function set_results(data) {
 	tidy_up();
 	results_table = $('table#operation_data').html(data);
@@ -159,58 +122,19 @@ function show_operation_fields(id) {
 	tidy_up();
 	$("div#"+id+" ul").css("display", "inline");
 }
-
 function hide_list(list_id) {
 	$("ul#"+list_id).css("display", "none");
 }
-
 function tidy_up() {
 	$("ul.operation_list").css("display", "none");
 }
-
-function show_dialog() {
-	$("div#dialog").css("display", "block");
-}
-
 function remove (fields) {
 	for (var count = fields.length - 1; count >= 0; count--) {
 		$(fields[count]).css("display", "none");
 	}
 }
-
-function show(fields) {
-	for(var count = fields.length-1; count >=0; count--) {
-		$(fields[count]).css("display", "inherit");
-	}
-}
-
-function populate_dimension(value) {
-	$("div#preview_selected_dims").append(value);
-}
-
-function display_available_fields() {
-	//var selected_dims = $("input:checked");
-	//var p_sltd = $.param(selected_dims);
-	$.get("./dscripts/dice2.php",  function(results) {
-		$("div#dialog").append(results);
-	})
-}
-
-function get_dim_fields(dimension) {
-	$("[value *= "+dimension+"]").hide();
-	$("[value *= "+dimension+"]").parent().hide();
-	$.get("./dscripts/dice2.php", {dim:dimension}, function(results) {
-		$("div#prev_selected_dims").html(results);
-	})
-}
-
-function select_field(field) {
-	alert(field);
-}
-
 function dice(event) {
-		//disable all checkboxes
-		var formID = event.target.id; //each form has an id and forms are the event targets not submit buttons
+	var formID = event.target.id; //each form has an id and forms are the event targets not submit buttons
 	var valid = $("form#"+formID+" input[type='text']:not([disabled])");
 	var requestStatus = $("form#"+formID+" input[type='radio']").serialize();
 	var form="formid="+formID+"&";
@@ -227,10 +151,8 @@ function dice(event) {
 		encode : true
 	}).done (function (results) {
 		set_results(results.headers+results.rows);
-		//alert(results.rows);
 	});
 }
-
 function updateField(fieldID, formID) {
 	var box = $("form#"+formID+" input[name="+fieldID);
 	var inputField = $("form#"+formID+" input[name='"+fieldID.slice(4)+"']");
@@ -241,18 +163,14 @@ function updateField(fieldID, formID) {
 		inputField.removeAttr("disabled");
 	}
 }
-
 function close_dialog() {
 	$("div#dialog").css("display", "none");
 	$("div#dialog_box > form").css("display", "none");
 }
-
 function enforceEditable(value, formID) {
 
 	var cbox = $("form#"+formID+" input[value ='"+value+"']");
 	var inputFields = $("form#"+formID+" input[type='text']");
-
-	alert(inputFields.length);
 
 	switch(value) {
 		case "exclude":
@@ -263,6 +181,7 @@ function enforceEditable(value, formID) {
 		break;
 		case"include":
 			inputFields.removeAttr("readonly");
+			inputFields.attr("required", "required");
 			break;
 	}
 	if(box.prop("checked")) {
@@ -270,5 +189,4 @@ function enforceEditable(value, formID) {
 	} else {
 		inputField.removeAttr("disabled");
 	}
-
 }

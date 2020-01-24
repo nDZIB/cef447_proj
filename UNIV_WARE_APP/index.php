@@ -52,17 +52,15 @@
 		<div class="col-7 operation-menu" id="dice-by" onmouseover="show_operation_fields(this.id)">
 			<span>Dice-By</span>
 			<ul class="operation_list" id="dice_list" onmouseleave ="hide_list(this.id)">
-				<li class="operation" id="student&religion" onclick="initiate_dice(this.id)">Student And Religion</li>
-				<li class="operation" id="student&course" onclick="initiate_dice(this.id)">Student and Courses</li>
-				<li class="operation" id="student&residence" onclick="initiate_dice(this.id)">Student and Residences</li>
-				<li class="operation" id="student&time" onclick="initiate_dice(this.id)">Student and School period</li>
-				<li class="operation"><hr></li>
-				<li class="operation" id="course&religion" onclick="initiate_dice(this.id)">Course and Religions</li>
-				<li class="operation" id="course&residence" onclick="initiate_dice(this.id)">Course and Residences</li>
-				<li class="operation" id="course&time" onclick="initiate_dice(this.id)">Course and School periods</li>
-				<li class="operation" ><hr></li>
-				<li class="operation" id="religion&residence" onclick="initiate_dice(this.id)">Religion and Residences</li>
-				<li class="operation" id="religion&time" onclick="initiate_dice(this.id)">Religion and School periods</li>
+				<li class="operation" id="student&religion" onclick="initiate_dice(this.id)">Student & Religion</li>
+				<li class="operation" id="student&course" onclick="initiate_dice(this.id)">Student & Courses</li>
+				<li class="operation" id="student&residence" onclick="initiate_dice(this.id)">Student & Residences</li>
+				<li class="operation" id="student&time" onclick="initiate_dice(this.id)">Student & School period</li>
+				<li class="operation" id="course&religion" onclick="initiate_dice(this.id)">Course & Religions</li>
+				<li class="operation" id="course&residence" onclick="initiate_dice(this.id)">Course & Residences</li>
+				<li class="operation" id="course&time" onclick="initiate_dice(this.id)">Course & School periods</li>
+				<li class="operation" id="religion&residence" onclick="initiate_dice(this.id)">Religion 7 Residences</li>
+				<li class="operation" id="religion&time" onclick="initiate_dice(this.id)">Religion & School periods</li>
 			</ul>
 		</div>
 		<div class="col-7 operation-menu" id="pivot-around" onmouseover="show_operation_fields(this.id)">
@@ -74,7 +72,6 @@
 	</div>
 	<div id="data-work-area">
 		<br>
-		<!-- <h2 style="color: blue;">Results</h2> -->
 		<center>
 			<table id="operation_data">	
 			</table>
@@ -88,20 +85,21 @@
 			<label><input type="radio" name="includevalues" value="exclude" onclick="enforceEditable(this.value, 'stud_reli_dice')" checked="checked">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
 			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'stud_reli_dice')">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'stud_reli_dice')" >Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Student Info Specs</legend>
 							<label>Full name <input type='text' name="name" disabled="disabled"></label><br>
-							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_reli_dice')" checked="checked">Include name<br>
+							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_reli_dice')" checked="checked">Exclude name
+							<br>
 							<label>Matricule #<input type='text' name="matricule"></label><br>
-							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_reli_dice')">Include matricule<br>
+							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_reli_dice')">Exclude matricule<br>
 							<label>Faculty <input type="text" name="fac"></label><br>
-							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_reli_dice')">Include Faculty<br>
+							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_reli_dice')">Exclude Faculty<br>
 							<label>Department <input type="text" name="depart"></label><br>
-							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_reli_dice')">Include Department<br>
+							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_reli_dice')">Exclude Department<br>
 							<label># of Lectures <input type="text" name="tsc"></label><br>
-							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_reli_dice')">Include Lecturer #<br>
+							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_reli_dice')">Exclude Lecturer #<br>
 						</fieldset>
 					</div><div class='col-6'>
 						<fieldset><legend>Religion Info Specs</legend>
@@ -116,23 +114,23 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='stud_crse_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'stud_crse_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'stud_crse_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'stud_crse_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Student Info Specs</legend>
 							<label>Full name <input type='text' name="name" disabled="disabled"></label><br>
-							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_crse_dice')" checked="checked">Include name<br>
+							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_crse_dice')" checked="checked">Exclude name<br>
 							<label>Matricule #<input type='text' name="matricule"></label><br>
-							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_crse_dice')">Include matricule<br>
+							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_crse_dice')">Exclude matricule<br>
 							<label>Faculty <input type="text" name="fac"></label><br>
-							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_crse_dice')">Include Faculty<br>
+							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_crse_dice')">Exclude Faculty<br>
 							<label>Department <input type="text" name="depart"></label><br>
-							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_crse_dice')">Include Department<br>
+							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_crse_dice')">Exclude Department<br>
 							<label># of Lectures <input type="text" name="tsc"></label><br>
-							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_crse_dice')">Include Lecturer #<br>
+							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_crse_dice')">Exclude Lecturer #<br>
 						</fieldset>
 					</div><div class='col-6'>
 						<fieldset><legend>Course Info Specs</legend>
@@ -153,23 +151,23 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='stud_reside_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'stud_reside_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'stud_reside_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'stud_reside_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Student Info Specs</legend>
 							<label>Full name <input type='text' name="name" disabled="disabled"></label><br>
-							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_reside_dice')" checked="checked">Include name<br>
+							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_reside_dice')" checked="checked">Exclude name<br>
 							<label>Matricule #<input type='text' name="matricule"></label><br>
-							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_reside_dice')">Include matricule<br>
+							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_reside_dice')">Exclude matricule<br>
 							<label>Faculty <input type="text" name="fac"></label><br>
-							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_reside_dice')">Include Faculty<br>
+							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_reside_dice')">Exclude Faculty<br>
 							<label>Department <input type="text" name="depart"></label><br>
-							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_reside_dice')">Include Department<br>
+							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_reside_dice')">Exclude Department<br>
 							<label># of Lectures <input type="text" name="tsc"></label><br>
-							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_reside_dice')">Include Lecturer #<br>
+							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_reside_dice')">Exclude Lecturer #<br>
 						</fieldset>
 					</div>
 					<div class='col-6'>
@@ -185,23 +183,23 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='stud_period_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked"onclick="enforceEditable(this.value, 'stud_period_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include"onclick="enforceEditable(this.value, 'stud_period_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields"onclick="enforceEditable(this.value, 'stud_period_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Student Info Specs</legend>
 							<label>Full name <input type='text' name="name" disabled="disabled"></label><br>
-							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_period_dice')" checked="checked">Include name<br>
+							<input type="checkbox"  name="sendname" onclick="updateField(this.name, 'stud_period_dice')" checked="checked">Exclude name<br>
 							<label>Matricule #<input type='text' name="matricule"></label><br>
-							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_period_dice')">Include matricule<br>
+							<input type="checkbox"  name="sendmatricule" onclick="updateField(this.name, 'stud_period_dice')">Exclude matricule<br>
 							<label>Faculty <input type="text" name="fac"></label><br>
-							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_period_dice')">Include Faculty<br>
+							<input type="checkbox" name="sendfac" onclick="updateField(this.name, 'stud_period_dice')">Exclude Faculty<br>
 							<label>Department <input type="text" name="depart"></label><br>
-							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_period_dice')">Include Department<br>
+							<input type="checkbox" name="senddepart" onclick="updateField(this.name, 'stud_period_dice')">Exclude Department<br>
 							<label># of Lectures <input type="text" name="tsc"></label><br>
-							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_period_dice')">Include Lecturer #<br>
+							<input type="checkbox" name="sendtsc" onclick="updateField(this.name, 'stud_period_dice')">Exclude Lecturer #<br>
 						</fieldset>
 					</div>
 					<div class='col-6'>
@@ -217,10 +215,10 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='course_reli_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked"onclick="enforceEditable(this.value, 'course_reli_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include"onclick="enforceEditable(this.value, 'course_reli_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields"onclick="enforceEditable(this.value, 'course_reli_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Course Info Specs</legend>
@@ -249,10 +247,10 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='course_time_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'course_time_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'course_time_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'course_time_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Course Info Specs</legend>
@@ -281,10 +279,10 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='course_reside_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'course_reside_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'course_reside_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'course_reside_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Course Info Specs</legend>
@@ -313,10 +311,10 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='reli_reside_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'reli_reside_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'reli_reside_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'reli_reside_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Religion Info Specs</legend>
@@ -339,10 +337,10 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 		<form id='reli_time_dice' method='GET' action="dscripts/dice.php">
-			<label><input type="radio" name="includevalues" value="exclude" checked="checked">Consider fields</label><br>
+			<label><input type="radio" name="includevalues" value="exclude" checked="checked" onclick="enforceEditable(this.value, 'reli_time_dice')">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
-			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'reli_time_dice')">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="allfields" onclick="enforceEditable(this.value, 'reli_time_dice')">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>
 						<fieldset><legend>Religion Info Specs</legend>
@@ -365,7 +363,6 @@
 				<button type="reset" hidden="hidden">reset</button>
 		</form>
 	</div>
-
 </div>
 
 </body>

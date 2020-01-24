@@ -35,7 +35,6 @@ if ($_GET['dim_to_slice']) {
 			break;
 	}
 
-
 	$slice_query =  "SELECT ".$fields." FROM ".$dimension." JOIN score_facts ON ".$id;
 
 	$pstatement = $connection->prepare ($slice_query);

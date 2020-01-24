@@ -2,8 +2,6 @@
 require "querries.php";
 require "dbconnection.php";
 
-
-//echo "field: ".($_GET['roll_up_to']);
 if ($_GET['roll_up_to']) {
 	try {
 		switch ($_GET['roll_up_to']) {
