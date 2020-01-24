@@ -16,31 +16,30 @@
 		</center>
 	</div>
 <br>
-<br>
 <hr>
-<div>
-	<center><h1 style="color:green;">Operations</h1></center>
+<div id="work-area">
+	<center><h1 style="color:green; padding: 0px; margin: 0px;">Operations</h1></center>
 	<div id="operations" class="row" onmouseleave="tidy_up()">
-		<div class="col-7" id="roll-up-to" onmouseover="show_operation_fields(this.id)">
+		<div class="col-7 operation-menu" id="roll-up-to" onmouseover="show_operation_fields(this.id)">
 			Roll Up
 			<ul class="operation_list" id="roll_up_list" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="department" onclick="roll_up(this.id)">Department</li>
 				<li class="operation" id="faculty" onclick="roll_up(this.id)">Faculty</li>
 				<li class="operation" id="religion" onclick="roll_up(this.id)">Religion</li>
-				<li class="operation" id="Shool_year" onclick="roll_up(this.id)">Shool_year</li>
+				<li class="operation" id="shyear" onclick="roll_up(this.id)">Shool_year</li>
 			</ul>
 		</div>
-		<div class="col-7" id="drill-down-to" onmouseover="show_operation_fields(this.id)">
+		<div class="col-7 operation-menu" id="drill-down-to" onmouseover="show_operation_fields(this.id)">
 			<span>Drill-Down-to</span>
 			<ul class="operation_list" id="drill_down_list" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="department" onclick="drill_down(this.id)">Department</li>
 				<li class="operation" id="faculty" onclick="roll_up(this.id)">Faculty</li>
 				<li class="operation" id="religion" onclick="roll_up(this.id)">Religion</li>
-				<li class="operation" id="Shool_year" onclick="roll_up(this.id)">Shool_year</li>
+				<li class="operation" id="shyear" onclick="roll_up(this.id)">Shool_year</li>
 			</ul>
 		</div>
 
-		<div class="col-7" id="slice-by" onmouseover="show_operation_fields(this.id)">
+		<div class="col-7 operation-menu" id="slice-by" onmouseover="show_operation_fields(this.id)">
 			<span>Slice-By</span>
 			<ul class="operation_list" id="slice_list" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="student_dim" onclick="slice(this.id)">Student</li>
@@ -50,7 +49,7 @@
 				<li class="operation" id="residence_dim" onclick="slice(this.id)">Residences</li>
 			</ul>
 		</div>
-		<div class="col-7" id="dice-by" onmouseover="show_operation_fields(this.id)">
+		<div class="col-7 operation-menu" id="dice-by" onmouseover="show_operation_fields(this.id)">
 			<span>Dice-By</span>
 			<ul class="operation_list" id="dice_list" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="student&religion" onclick="initiate_dice(this.id)">Student And Religion</li>
@@ -66,15 +65,16 @@
 				<li class="operation" id="religion&time" onclick="initiate_dice(this.id)">Religion and School periods</li>
 			</ul>
 		</div>
-		<div class="col-7" id="pivot-around" onmouseover="show_operation_fields(this.id)">
+		<div class="col-7 operation-menu" id="pivot-around" onmouseover="show_operation_fields(this.id)">
 			<span>Pivot-Around</span>
 			<ul class="operation_list" id="pivot-around" onmouseleave ="hide_list(this.id)">
 				<li class="operation" id="department" onclick="pivot(this.id)">Department</li>
 			</ul>
 		</div>
 	</div>
-	<div>
-		<h2 style="color: blue;">Results</h2>
+	<div id="data-work-area">
+		<br>
+		<!-- <h2 style="color: blue;">Results</h2> -->
 		<center>
 			<table id="operation_data">	
 			</table>
@@ -87,7 +87,7 @@
 		<form id='stud_reli_dice' method='GET' action="dscripts/dice.php">
 			<label><input type="radio" name="includevalues" value="exclude" onclick="enforceEditable(this.value, 'stud_reli_dice')" checked="checked">Consider fields</label><br>
 			<!-- consider values, when checked, should change all input fields to require -->
-			<label><input type="radio" name="includevalues" value="include">Consider values</label><br> 
+			<label><input type="radio" name="includevalues" value="include" onclick="enforceEditable(this.value, 'stud_reli_dice')">Consider values</label><br> 
 			<label><input type="radio" name="includevalues" value="allfields">Show All Fields following criteria</label><br>
 				<div class='row'>
 					<div class='col-6'>

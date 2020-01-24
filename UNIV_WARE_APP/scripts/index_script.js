@@ -252,12 +252,18 @@ function enforceEditable(value, formID) {
 	var cbox = $("form#"+formID+" input[value ='"+value+"']");
 	var inputFields = $("form#"+formID+" input[type='text']");
 
+	alert(inputFields.length);
+
 	switch(value) {
-		case "exlude":
+		case "exclude":
 			if(cbox.prop("checked"))
 				inputFields.attr("readonly", "readonly");
 			else
 				inputFields.removeAttr("readonly");
+		break;
+		case"include":
+			inputFields.removeAttr("readonly");
+			break;
 	}
 	if(box.prop("checked")) {
 		inputField.attr("disabled", "disabled");

@@ -181,7 +181,7 @@ function generateValuedSQLQUERY($data) {
 				break;
 		}
 		}
-		$submited = "SELECT ".substr($columns, 0, -2)." FROM ".$tables.$submited;
+		$submited = "SELECT DISTINCT ".substr($columns, 0, -2)." FROM ".$tables.$submited;
 
 		return substr($submited, 0, -4);
 		}
@@ -327,7 +327,7 @@ function generateColumnBasedSQLQUERY($data) {
 				break;
 		}
 	}
-	$submited = "SELECT ".substr($columns, 0, -2)." FROM ".$tables;
+	$submited = "SELECT DISTINCT ".substr($columns, 0, -2)." FROM ".$tables;
 
 	return $submited;
 }
@@ -386,7 +386,7 @@ function getAllColumns($data) {
 			break;
 	}
 	
-	$submited = "SELECT ".$columns." FROM ".$tables;
+	$submited = "SELECT DISTINCT ".$columns." FROM ".$tables;
 
 	return $submited;
 

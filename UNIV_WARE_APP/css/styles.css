@@ -1,12 +1,36 @@
+
 table, td,th,tr {
 	border-collapse: collapse;
 	border: 1px solid green;
 }
 
+td {
+	font-size: 11px;
+}
+.tab_header {
+	color: red;
+	font-size: 16px;
+}
+
+div#base_data_div {
+	height: 40%;
+	overflow: scroll;
+}
+
+
+div#data-work-area {
+	overflow: scroll;
+}
+
 .operation_list {
 	display: none; 
-	position: fixed;
+	position: absolute;
 }  
+
+.operation-menu {
+	display: inline-block;
+	position: relative;
+}
 
 li.operation {
 	background-color: #eeffff;

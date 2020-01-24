@@ -23,7 +23,7 @@ function get_database_connection()
 function get_resultset_headers($resultset, $size) {
 	$table_header = "<tr>";
 	for ($i=0; $i < $size ; $i++) { 
-		$table_header .= "<th>".$resultset->getColumnMeta($i)['name']."</th>";
+		$table_header .= "<th class='tab_header'>".$resultset->getColumnMeta($i)['name']."</th>";
 	}
 	$table_header .= "</tr>";
 
